@@ -1,0 +1,73 @@
+---
+// Halaman ini dicantumkan di Play Console (Data safety → URL penghapusan akun). Google mewajibkannya untuk aplikasi
+// yang membuat profil pemain di server.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { t, localePath, type Lang } from '../data/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t[lang];
+const mail = site.contactEmail;
+const subject = encodeURIComponent(lang === 'id' ? 'Hapus akun TipTop Fit' : 'Delete my TipTop Fit account');
+const body = encodeURIComponent(lang === 'id'
+  ? 'Nama pengguna:\nNegara:\nPerkiraan tanggal terakhir bermain:\n'
+  : 'Username:\nCountry:\nApproximate date I last played:\n');
+const privacy = localePath(lang, '/privacy/');
+---
+<Base lang={lang} title={`${s.del.title} – ${site.name}`} description={s.del.description} path="/delete-account/">
+  <article class="wrap doc">
+    <h1>{s.del.title}</h1>
+    {lang === 'en' ? (
+      <Fragment>
+        <p>This page explains how to delete the data that the <strong>{site.name}</strong> game stores on our servers.</p>
+        <p class="notice">If you only play offline modes and never used the world ranking or Party, we have no player profile for you. Uninstalling the app removes all data stored on your device.</p>
+        <h2>How to request deletion</h2>
+        <ol>
+          <li>Send an email to <a href={`mailto:${mail}?subject=${subject}&body=${body}`}>{mail}</a> with the subject <em>Delete my TipTop Fit account</em>.</li>
+          <li>Include your in-game <strong>username</strong> and <strong>country</strong>, so we can find your profile.</li>
+          <li>We may ask you to confirm the request from inside the app before deleting, to make sure it is your profile.</li>
+        </ol>
+        <h2>What we delete</h2>
+        <ul>
+          <li>Your player profile: username, country, install ID, access token and recovery code</li>
+          <li>All your scores and your entries on the world ranking</li>
+          <li>Your Party room entries and results, and your push notification token</li>
+        </ul>
+        <h2>What we keep, and for how long</h2>
+        <ul>
+          <li>Data is removed from our live systems within 30 days of your request.</li>
+          <li>Copies in backups are removed within 90 days.</li>
+          <li>Short-lived server logs may contain your IP address until they are rotated out.</li>
+          <li>Data held by Google for ads and analytics is controlled by Google; you can reset your advertising ID in your device settings.</li>
+        </ul>
+        <p>More details are in our <a href={privacy}>Privacy Policy</a>.</p>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <p>Halaman ini menjelaskan cara menghapus data yang disimpan game <strong>{site.name}</strong> di server kami.</p>
+        <p class="notice">Bila kamu hanya bermain mode offline dan tidak pernah memakai peringkat dunia atau Party, kami tidak menyimpan profil pemain untukmu. Menghapus aplikasi akan menghapus semua data di perangkatmu.</p>
+        <h2>Cara meminta penghapusan</h2>
+        <ol>
+          <li>Kirim email ke <a href={`mailto:${mail}?subject=${subject}&body=${body}`}>{mail}</a> dengan subjek <em>Hapus akun TipTop Fit</em>.</li>
+          <li>Cantumkan <strong>nama pengguna</strong> dan <strong>negara</strong> di dalam game, supaya profilmu bisa kami temukan.</li>
+          <li>Kami mungkin memintamu mengonfirmasi dari dalam aplikasi sebelum menghapus, untuk memastikan profil itu milikmu.</li>
+        </ol>
+        <h2>Yang kami hapus</h2>
+        <ul>
+          <li>Profil pemain: nama pengguna, negara, ID instalasi, token akses, dan kode pemulihan</li>
+          <li>Semua skor dan entrimu di peringkat dunia</li>
+          <li>Entri dan hasil room Party, serta token notifikasi push</li>
+        </ul>
+        <h2>Yang kami simpan, dan berapa lama</h2>
+        <ul>
+          <li>Data dihapus dari sistem aktif dalam 30 hari sejak permintaan.</li>
+          <li>Salinan di cadangan dihapus dalam 90 hari.</li>
+          <li>Log server berumur pendek dapat memuat alamat IP sampai dirotasi.</li>
+          <li>Data yang dipegang Google untuk iklan dan analytics dikendalikan oleh Google; ID iklan bisa direset di pengaturan perangkat.</li>
+        </ul>
+        <p>Rincian lain ada di <a href={privacy}>Kebijakan Privasi</a>.</p>
+      </Fragment>
+    )}
+  </article>
+</Base>

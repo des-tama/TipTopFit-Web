@@ -1,0 +1,13 @@
+---
+import { site, playStoreUrl } from '../data/site';
+import { t, type Lang } from '../data/i18n';
+
+interface Props { lang: Lang }
+const h = t[Astro.props.lang].home;
+---
+<div class="ctas">
+  {site.playStoreLive
+    ? <a class="btn" href={playStoreUrl} rel="noopener">▶ {h.ctaLive}</a>
+    : <span class="btn" aria-disabled="true">▶ {h.ctaSoon}</span>}
+  {site.appStoreUrl && <a class="btn ghost" href={site.appStoreUrl} rel="noopener">{h.ctaApple}</a>}
+</div>

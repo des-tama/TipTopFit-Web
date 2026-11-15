@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { t, localePath, type Lang } from '../data/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t[lang];
+const mail = site.contactEmail;
+const privacy = localePath(lang, '/privacy/');
+const date = new Date(site.policyDate + 'T00:00:00Z').toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+<Base lang={lang} title={`${s.terms.title} – ${site.name}`} description={s.terms.description} path="/terms/">
+  <article class="wrap doc">
+    <h1>{s.terms.title}</h1>
+    <p class="meta">{s.updated}: {date}</p>
+    {lang === 'en' ? (
+      <Fragment>
+        <p>By downloading or playing TipTop Fit you agree to these terms. If you do not agree, please do not use the game.</p>
+        <h2>Using the game</h2>
+        <p>We give you a personal, non-transferable licence to install and play TipTop Fit for your own non-commercial use. The game, its artwork, sounds and code remain our property.</p>
+        <h2>Fair play</h2>
+        <ul>
+          <li>Do not use cheats, bots, modified apps or any other way to submit scores you did not earn in normal play.</li>
+          <li>Do not attack, overload or try to get unauthorised access to our servers.</li>
+          <li>Usernames must not be offensive, hateful, sexual, or impersonate someone else.</li>
+        </ul>
+        <p>We may remove scores, rename or suspend profiles, or close Party rooms that break these rules.</p>
+        <h2>Ads and optional videos</h2>
+        <p>The game is free and supported by ads. Watching a rewarded video is always your choice.</p>
+        <h2>Availability</h2>
+        <p>We work to keep the game and its online features running, but we provide them "as is" and cannot guarantee they will always be available or error-free. We may change or end features, including leaderboards and Party, at any time.</p>
+        <h2>Liability</h2>
+        <p>To the extent allowed by law, we are not liable for indirect or consequential losses arising from your use of the game.</p>
+        <h2>Privacy</h2>
+        <p>How we handle data is described in our <a href={privacy}>Privacy Policy</a>.</p>
+        <h2>Changes and governing law</h2>
+        <p>We may update these terms and will change the date above when we do. These terms are governed by the laws of the Republic of Indonesia.</p>
+        <h2>Contact</h2>
+        <p><a href={`mailto:${mail}`}>{mail}</a></p>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <p>Dengan mengunduh atau memainkan TipTop Fit, kamu menyetujui ketentuan ini. Bila tidak setuju, mohon jangan gunakan game ini.</p>
+        <h2>Penggunaan game</h2>
+        <p>Kami memberi lisensi pribadi yang tidak dapat dipindahtangankan untuk memasang dan memainkan TipTop Fit untuk keperluan sendiri yang bukan komersial. Game, gambar, suara, dan kodenya tetap milik kami.</p>
+        <h2>Bermain adil</h2>
+        <ul>
+          <li>Jangan memakai cheat, bot, aplikasi yang dimodifikasi, atau cara lain untuk mengirim skor yang tidak didapat dari permainan biasa.</li>
+          <li>Jangan menyerang, membebani, atau mencoba mengakses server kami tanpa izin.</li>
+          <li>Nama pengguna tidak boleh menyinggung, mengandung kebencian, bersifat seksual, atau meniru orang lain.</li>
+        </ul>
+        <p>Kami dapat menghapus skor, mengganti nama atau menangguhkan profil, atau menutup room Party yang melanggar aturan ini.</p>
+        <h2>Iklan dan video opsional</h2>
+        <p>Game ini gratis dan didukung iklan. Menonton video berhadiah selalu merupakan pilihanmu.</p>
+        <h2>Ketersediaan</h2>
+        <p>Kami berusaha menjaga game dan fitur online-nya tetap berjalan, tetapi menyediakannya "sebagaimana adanya" dan tidak dapat menjamin selalu tersedia atau bebas kesalahan. Kami dapat mengubah atau menghentikan fitur, termasuk peringkat dan Party, kapan saja.</p>
+        <h2>Tanggung jawab</h2>
+        <p>Sejauh diizinkan hukum, kami tidak bertanggung jawab atas kerugian tidak langsung yang timbul dari penggunaan game.</p>
+        <h2>Privasi</h2>
+        <p>Cara kami menangani data dijelaskan di <a href={privacy}>Kebijakan Privasi</a>.</p>
+        <h2>Perubahan dan hukum yang berlaku</h2>
+        <p>Kami dapat memperbarui ketentuan ini dan akan mengubah tanggal di atas bila melakukannya. Ketentuan ini tunduk pada hukum Republik Indonesia.</p>
+        <h2>Kontak</h2>
+        <p><a href={`mailto:${mail}`}>{mail}</a></p>
+      </Fragment>
+    )}
+  </article>
+</Base>

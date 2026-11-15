@@ -1,0 +1,150 @@
+---
+// Kebijakan privasi. Isinya disusun dari cara kerja kode aplikasi & backend TipTop Fit (Nov 2026).
+// Bila fitur yang mengumpulkan data berubah, perbarui halaman ini dan site.policyDate.
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { t, localePath, type Lang } from '../data/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t[lang];
+const mail = site.contactEmail;
+const del = localePath(lang, '/delete-account/');
+const date = new Date(site.policyDate + 'T00:00:00Z').toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+<Base lang={lang} title={`${s.privacy.title} – ${site.name}`} description={s.privacy.description} path="/privacy/">
+  <article class="wrap doc">
+    <h1>{s.privacy.title}</h1>
+    <p class="meta">{s.updated}: {date}</p>
+
+    {lang === 'en' ? (
+      <Fragment>
+        <p>This policy explains what data the TipTop Fit game (Android package <code>{site.androidPackage}</code>, and the iOS version when available) collects, why, and the choices you have. It also covers this website.</p>
+
+        <h2>Summary</h2>
+        <ul>
+          <li>You can play without creating an account. Offline modes keep your progress only on your device.</li>
+          <li>Online features (world ranking and Party rooms) use a username you choose and your country. We never ask for your real name, email address or phone number.</li>
+          <li>The game shows ads from Google AdMob and measures usage with Google Firebase Analytics. Both are run by Google.</li>
+          <li>We do not sell your data.</li>
+          <li>You can ask us to delete your data at any time: see <a href={del}>Delete account</a>.</li>
+        </ul>
+
+        <h2>Data we collect</h2>
+        <table>
+          <thead><tr><th>Data</th><th>When</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Settings, local high scores, a random ID created when the app is installed</td><td>Always, stored only on your device</td><td>To run the game and remember your progress</td></tr>
+            <tr><td>Username you choose and your country (2-letter code)</td><td>When you use the world ranking or Party</td><td>To show your name and flag on leaderboards and in Party rooms. Your username and country are visible to other players.</td></tr>
+            <tr><td>Scores, play time, game mode, Party rooms joined and their results</td><td>When you submit a score or play in Party</td><td>To build rankings and Party results</td></tr>
+            <tr><td>The random install ID, an access token and a recovery code</td><td>When your player profile is created</td><td>To keep your profile secure and let you restore it on a new device. The token and recovery code are stored only as one-way hashes.</td></tr>
+            <tr><td>Push notification token</td><td>When you allow notifications and join a Party room</td><td>To tell you when a Party room has ended</td></tr>
+            <tr><td>IP address and request time</td><td>Whenever the app talks to our server</td><td>Security, preventing abuse and spam, and limiting how many requests one address can make</td></tr>
+          </tbody>
+        </table>
+        <p>We do not collect your precise location, contacts, photos, files or audio. To join a Party room by QR code, the Android app uses the Google code scanner, which returns only the scanned code to the app; the iOS app uses the camera only while you scan. Camera images are never stored or sent.</p>
+
+        <h2>Third-party services</h2>
+        <ul>
+          <li><strong>Google AdMob</strong> shows ads. Google may collect your device's advertising ID, IP address and device information to serve, limit and measure ads, and to personalise them where the law allows. You can reset or delete your advertising ID, or turn off ad personalisation, in your device settings. See <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">how Google uses data from partner apps</a>.</li>
+          <li><strong>Google Firebase Analytics</strong> records how the app is used (for example screens opened, games started and app version) together with device type, operating system and approximate country, so we can improve the game.</li>
+          <li><strong>Firebase Cloud Messaging</strong> (Android) and <strong>Apple Push Notification service</strong> (iOS) deliver Party notifications.</li>
+        </ul>
+        <p>These providers process data under their own privacy policies, including the <a href="https://policies.google.com/privacy" rel="noopener">Google Privacy Policy</a>.</p>
+
+        <h2>Sharing</h2>
+        <p>We share data only with the service providers above and with our hosting provider, which runs our servers in Indonesia. We may disclose data if required by law. We do not sell or rent personal data.</p>
+
+        <h2>How long we keep data</h2>
+        <ul>
+          <li>Your player profile, scores and Party results are kept while you use the online features, until you ask us to delete them.</li>
+          <li>If a profile has been inactive for a long period (currently 180 days), its username may be released so other players can use it.</li>
+          <li>Server logs are rotated automatically and kept only for a short time.</li>
+          <li>After a deletion request, data is removed from our live systems within 30 days and from backups within 90 days.</li>
+        </ul>
+
+        <h2>Security</h2>
+        <p>All traffic between the app and our server is encrypted with HTTPS. Access tokens and recovery codes are stored as hashes, and access to the server and admin tools is restricted and protected with two-factor authentication.</p>
+
+        <h2>Children</h2>
+        <p>TipTop Fit is intended for players aged 13 and over and is not directed at children under 13. If you believe a child under 13 has provided us with personal data, contact us and we will delete it.</p>
+
+        <h2>Your rights</h2>
+        <p>Depending on where you live (including under Indonesia's Personal Data Protection Law and the EU/UK GDPR), you may have the right to access, correct or delete your data, or to object to certain processing. You can change your username in the game, and you can request access or deletion by email. We will respond within 30 days.</p>
+
+        <h2>This website</h2>
+        <p>This website does not use cookies, analytics or advertising. Our hosting provider may keep standard server logs (such as IP address and pages requested) for security.</p>
+
+        <h2>Changes</h2>
+        <p>If we change this policy, we will update the date at the top of this page.</p>
+
+        <h2>Contact</h2>
+        <p>Questions or requests: <a href={`mailto:${mail}`}>{mail}</a></p>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <p>Kebijakan ini menjelaskan data apa yang dikumpulkan game TipTop Fit (paket Android <code>{site.androidPackage}</code>, dan versi iOS bila tersedia), untuk apa, dan pilihan apa yang kamu miliki. Kebijakan ini juga berlaku untuk situs web ini.</p>
+
+        <h2>Ringkasan</h2>
+        <ul>
+          <li>Kamu bisa bermain tanpa membuat akun. Mode offline menyimpan progres hanya di perangkatmu.</li>
+          <li>Fitur online (peringkat dunia dan room Party) memakai nama pengguna pilihanmu dan negaramu. Kami tidak pernah meminta nama asli, alamat email, atau nomor telepon.</li>
+          <li>Game ini menampilkan iklan dari Google AdMob dan mengukur penggunaan dengan Google Firebase Analytics. Keduanya dijalankan oleh Google.</li>
+          <li>Kami tidak menjual data kamu.</li>
+          <li>Kamu bisa meminta data dihapus kapan saja: lihat <a href={del}>Hapus akun</a>.</li>
+        </ul>
+
+        <h2>Data yang kami kumpulkan</h2>
+        <table>
+          <thead><tr><th>Data</th><th>Kapan</th><th>Untuk apa</th></tr></thead>
+          <tbody>
+            <tr><td>Pengaturan, rekor lokal, ID acak yang dibuat saat aplikasi dipasang</td><td>Selalu, hanya disimpan di perangkatmu</td><td>Menjalankan game dan mengingat progres</td></tr>
+            <tr><td>Nama pengguna pilihanmu dan negara (kode 2 huruf)</td><td>Saat memakai peringkat dunia atau Party</td><td>Menampilkan nama dan bendera di papan peringkat dan room Party. Nama pengguna dan negara terlihat oleh pemain lain.</td></tr>
+            <tr><td>Skor, lama bermain, mode permainan, room Party yang diikuti beserta hasilnya</td><td>Saat mengirim skor atau bermain Party</td><td>Menyusun peringkat dan hasil Party</td></tr>
+            <tr><td>ID instalasi acak, token akses, dan kode pemulihan</td><td>Saat profil pemain dibuat</td><td>Menjaga keamanan profil dan memulihkannya di perangkat baru. Token dan kode pemulihan hanya disimpan dalam bentuk hash satu arah.</td></tr>
+            <tr><td>Token notifikasi push</td><td>Saat kamu mengizinkan notifikasi dan bergabung ke room Party</td><td>Memberi tahu saat room Party selesai</td></tr>
+            <tr><td>Alamat IP dan waktu permintaan</td><td>Setiap kali aplikasi berkomunikasi dengan server kami</td><td>Keamanan, mencegah penyalahgunaan dan spam, serta membatasi jumlah permintaan dari satu alamat</td></tr>
+          </tbody>
+        </table>
+        <p>Kami tidak mengumpulkan lokasi akurat, kontak, foto, file, atau audio. Untuk bergabung ke room Party lewat QR, aplikasi Android memakai pemindai kode Google yang hanya mengembalikan isi kode ke aplikasi; aplikasi iOS memakai kamera hanya selama kamu memindai. Gambar kamera tidak pernah disimpan atau dikirim.</p>
+
+        <h2>Layanan pihak ketiga</h2>
+        <ul>
+          <li><strong>Google AdMob</strong> menampilkan iklan. Google dapat mengumpulkan ID iklan perangkat, alamat IP, dan informasi perangkat untuk menayangkan, membatasi, dan mengukur iklan, serta mempersonalisasinya bila diizinkan hukum. Kamu bisa mereset atau menghapus ID iklan, atau mematikan personalisasi iklan, di pengaturan perangkat. Lihat <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">cara Google memakai data dari aplikasi mitra</a>.</li>
+          <li><strong>Google Firebase Analytics</strong> mencatat cara aplikasi dipakai (misalnya layar yang dibuka, permainan yang dimulai, dan versi aplikasi) bersama jenis perangkat, sistem operasi, dan perkiraan negara, supaya kami bisa memperbaiki game.</li>
+          <li><strong>Firebase Cloud Messaging</strong> (Android) dan <strong>Apple Push Notification service</strong> (iOS) mengirim notifikasi Party.</li>
+        </ul>
+        <p>Penyedia ini memproses data berdasarkan kebijakan privasi mereka sendiri, termasuk <a href="https://policies.google.com/privacy?hl=id" rel="noopener">Kebijakan Privasi Google</a>.</p>
+
+        <h2>Berbagi data</h2>
+        <p>Kami hanya membagikan data kepada penyedia layanan di atas dan penyedia hosting yang menjalankan server kami di Indonesia. Kami dapat mengungkapkan data bila diwajibkan hukum. Kami tidak menjual atau menyewakan data pribadi.</p>
+
+        <h2>Berapa lama data disimpan</h2>
+        <ul>
+          <li>Profil pemain, skor, dan hasil Party disimpan selama kamu memakai fitur online, sampai kamu meminta penghapusan.</li>
+          <li>Bila profil tidak aktif dalam waktu lama (saat ini 180 hari), nama penggunanya dapat dilepas sehingga bisa dipakai pemain lain.</li>
+          <li>Log server dirotasi otomatis dan hanya disimpan dalam waktu singkat.</li>
+          <li>Setelah permintaan penghapusan, data dihapus dari sistem aktif dalam 30 hari dan dari cadangan dalam 90 hari.</li>
+        </ul>
+
+        <h2>Keamanan</h2>
+        <p>Semua lalu lintas antara aplikasi dan server kami dienkripsi dengan HTTPS. Token akses dan kode pemulihan disimpan dalam bentuk hash, dan akses ke server serta alat admin dibatasi dan dilindungi autentikasi dua faktor.</p>
+
+        <h2>Anak-anak</h2>
+        <p>TipTop Fit ditujukan untuk pemain berusia 13 tahun ke atas dan tidak ditujukan untuk anak di bawah 13 tahun. Bila kamu yakin seorang anak di bawah 13 tahun memberikan data pribadi kepada kami, hubungi kami dan kami akan menghapusnya.</p>
+
+        <h2>Hak kamu</h2>
+        <p>Bergantung pada tempat tinggalmu (termasuk menurut UU Pelindungan Data Pribadi Indonesia dan GDPR Uni Eropa/Inggris), kamu mungkin berhak mengakses, memperbaiki, atau menghapus data, serta menolak pemrosesan tertentu. Nama pengguna bisa diubah di dalam game, dan permintaan akses atau penghapusan bisa dikirim lewat email. Kami akan menjawab dalam 30 hari.</p>
+
+        <h2>Situs web ini</h2>
+        <p>Situs ini tidak memakai cookie, analytics, atau iklan. Penyedia hosting kami dapat menyimpan log server standar (seperti alamat IP dan halaman yang diminta) untuk keamanan.</p>
+
+        <h2>Perubahan</h2>
+        <p>Bila kebijakan ini berubah, kami memperbarui tanggal di bagian atas halaman.</p>
+
+        <h2>Kontak</h2>
+        <p>Pertanyaan atau permintaan: <a href={`mailto:${mail}`}>{mail}</a></p>
+      </Fragment>
+    )}
+  </article>
+</Base>

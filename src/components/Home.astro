@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import StoreButtons from './StoreButtons.astro';
+import { site, playStoreUrl } from '../data/site';
+import { t, localePath, type Lang } from '../data/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const h = t[lang].home;
+const pageUrl = new URL(localePath(lang, '/'), site.url).href;
+
+// Data terstruktur untuk Google: aplikasi (game), situs, dan FAQ. Tanpa rating/ulasan karena belum ada data asli.
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: site.name,
+    url: pageUrl,
+    description: h.description,
+    applicationCategory: 'GameApplication',
+    genre: ['Puzzle', 'Educational', 'Math'],
+    operatingSystem: 'Android',
+    inLanguage: ['en', 'id'],
+    image: new URL('/icon-512.png', site.url).href,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    ...(site.playStoreLive ? { installUrl: playStoreUrl, downloadUrl: playStoreUrl } : {}),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.name,
+    url: site.url,
+    inLanguage: lang,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: h.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+
+const [first, ...rest] = h.h1.split(' ');
+---
+<Base lang={lang} title={h.title} description={h.description} path="/" jsonLd={jsonLd}>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <span class="kicker">{h.kicker}</span>
+        <h1>{first} <span>{rest.join(' ')}</span></h1>
+        <p class="lead">{h.lead}</p>
+        <StoreButtons lang={lang} />
+        <p class="small">{h.free}</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img src="/icon-512.png" width="380" height="380" alt="" fetchpriority="high" />
+        <span class="chip a">7 × 8</span>
+        <span class="chip b">LXVII</span>
+        <span class="chip c">2 km = ? m</span>
+      </div>
+    </section>
+
+    <section id="how" aria-labelledby="how-h">
+      <div class="section-head"><h2 id="how-h">{h.howTitle}</h2></div>
+      <ol class="grid three" style="list-style:none;padding:0;margin:0">
+        {h.how.map((s, i) => (
+          <li class="card">
+            <div class="step-no">{i + 1}</div>
+            <h3>{s.h}</h3>
+            <p>{s.p}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="features" aria-labelledby="modes-h">
+      <div class="section-head"><h2 id="modes-h">{h.modesTitle}</h2></div>
+      <div class="grid four">
+        {h.modes.map((m) => (
+          <article class="card">
+            <h3>{m.h}</h3>
+            <p>{m.p}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="topics-h">
+      <div class="section-head"><h2 id="topics-h">{h.topicsTitle}</h2></div>
+      <ul class="topics">
+        {h.topics.map((x) => <li>{x}</li>)}
+      </ul>
+    </section>
+
+    <section id="faq" class="faq" aria-labelledby="faq-h">
+      <div class="section-head"><h2 id="faq-h">{h.faqTitle}</h2></div>
+      {h.faq.map((f, i) => (
+        <details open={i === 0}>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </section>
+
+    <section class="final" aria-labelledby="final-h">
+      <h2 id="final-h">{h.finalTitle}</h2>
+      <StoreButtons lang={lang} />
+    </section>
+  </div>
+</Base>

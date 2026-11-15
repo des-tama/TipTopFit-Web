@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../data/i18n';
+const s = t.en.notFound;
+const i = t.id.notFound;
+---
+<Base lang="en" title="404 – TipTop Fit" description={s.p} path="/404/" noindex>
+  <section class="wrap doc" style="text-align:center">
+    <h1>404</h1>
+    <p>{s.title}. {s.p}</p>
+    <p lang="id">{i.title}. {i.p}</p>
+    <p><a class="btn" href="/">{s.back}</a></p>
+  </section>
+</Base>

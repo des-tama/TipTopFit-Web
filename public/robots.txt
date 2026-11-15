@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://playtiptopfit.com/sitemap-index.xml
