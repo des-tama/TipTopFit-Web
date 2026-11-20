@@ -6,7 +6,7 @@ export const site = {
   url: 'https://playtiptopfit.com',
   // Email kontak yang tampil di kebijakan privasi & halaman hapus akun. WAJIB diganti ke alamat yang benar-benar
   // Anda baca: Google Play memeriksa bahwa pengguna bisa menghubungi Anda.
-  contactEmail: 'support@playtiptopfit.com',
+  contactEmail: 'estawiraspace@gmail.com',
   androidPackage: 'com.estawira.tiptopfit',
   // false = tombol bertuliskan "Segera hadir". Ubah ke true setelah aplikasi lolos review dan tampil di Google Play.
   playStoreLive: false,
